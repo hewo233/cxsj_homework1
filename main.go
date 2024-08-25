@@ -4,10 +4,21 @@ import (
 	"fmt"
 	"github.com/hewo233/cxsj_homework1/common"
 	"github.com/hewo233/cxsj_homework1/model"
+	"golang.org/x/crypto/ssh/terminal"
+	"os"
 )
 
 func main() {
-	db, _ := common.InitDB()
+
+	fmt.Print("Enter Password: ")
+	passwordBytes, err := terminal.ReadPassword(int(os.Stdin.Fd()))
+	if err != nil {
+		fmt.Println("Error reading password")
+		return
+	}
+	dbPassword := string(passwordBytes)
+
+	db, _ := common.InitDB(dbPassword)
 	defer common.CloseDB(db)
 
 	for {

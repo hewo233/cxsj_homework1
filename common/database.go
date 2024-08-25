@@ -9,14 +9,13 @@ import (
 )
 
 const (
-	dbName     = "cxsj1db"
-	dbUser     = "hewo"
-	dbPassword = "hewo023747@@"
-	dbHost     = "localhost:3306"
+	dbName = "cxsj1db"
+	dbUser = "hewo"
+	dbHost = "localhost:3306"
 )
 
 // InitDB init DB, return a pointer to sql.DB
-func InitDB() (*sql.DB, error) {
+func InitDB(dbPassword string) (*sql.DB, error) {
 	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s)/%s", dbUser, dbPassword, dbHost, dbName))
 	if err != nil {
 		log.Println("Error opening database connection:", err)
@@ -26,7 +25,7 @@ func InitDB() (*sql.DB, error) {
 		log.Println("Error connecting to database:", err)
 		return nil, err
 	}
-	println("success connect to db")
+	println("success connect to doc")
 	return db, nil
 }
 
