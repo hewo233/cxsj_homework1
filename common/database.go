@@ -14,6 +14,8 @@ const (
 	dbHost = "localhost:3306"
 )
 
+var UserDB *sql.DB
+
 // InitDB init DB, return a pointer to sql.DB
 func InitDB(dbPassword string) (*sql.DB, error) {
 	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s)/%s", dbUser, dbPassword, dbHost, dbName))
@@ -120,4 +122,29 @@ func DeleteRecord(email string, db *sql.DB) error {
 	fmt.Printf("Delete Rows affected: %d\n", rowsAffected)
 
 	return nil
+}
+
+func ListAllRecords(db *sql.DB) ([]model.CxsjUser, error) {
+
+	var usersList []model.CxsjUser
+
+	rows, err := db.Query("SELECT * FROM users")
+	if err != nil {
+		log.Println("Error querying all records: ", err)
+		return nil, err
+	}
+	for rows.Next() {
+
+		var user model.CxsjUser
+		err := rows.Scan(&user.ID, &user.Email, &user.Name, &user.Password, &user.Gender)
+
+		usersList = append(usersList, user)
+
+		if err != nil {
+			log.Println("Error scanning record: ", err)
+			return nil, err
+		}
+	}
+
+	return usersList, nil
 }

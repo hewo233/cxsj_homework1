@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>简易数据库操作界面</title>
+</head>
+<body>
+<h1>数据库操作</h1>
+<input id="queryInput" type="text" placeholder="输入查询条件">
+<button onclick="queryData()">查询</button>
+<br>
+<button onclick="addData()">添加数据</button>
+<button onclick="updateData()">更新数据</button>
+<button onclick="deleteData()">删除数据</button>
+<table id="dataTable" border="1">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>email</th>
+        <th>name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 查询结果将在这里显示 -->
+    </tbody>
+</table>
+<script src="app.js"></script>
+</body>
+</html>
