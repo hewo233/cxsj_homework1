@@ -3,6 +3,7 @@ package common
 import (
 	"database/sql"
 	"fmt"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/hewo233/cxsj_homework1/model"
 	"log"
 )
@@ -25,6 +26,7 @@ func InitDB() (*sql.DB, error) {
 		log.Println("Error connecting to database:", err)
 		return nil, err
 	}
+	println("success connect to db")
 	return db, nil
 }
 
@@ -41,7 +43,7 @@ func CloseDB(db *sql.DB) {
 
 // AddRecord add record to DB
 func AddRecord(info *model.CxsjUser, db *sql.DB) error {
-	result, err := db.Exec("INSERT INTO cxsj1_user (email, name, password, gender) VALUES (?, ?, ?, ?)", info.Email, info.Name, info.Password)
+	result, err := db.Exec("INSERT INTO users (email, name, password, gender) VALUES (?, ?, ?, ?)", info.Email, info.Name, info.Password, info.Gender)
 	if err != nil {
 		log.Println("Error adding record to database:", err)
 		return err
