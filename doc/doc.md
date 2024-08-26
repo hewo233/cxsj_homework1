@@ -27,12 +27,12 @@
 ## API
 
 ```go
-func InitDB(dbPassword string) (*sql.DB, error)
-func CloseDB(db *sql.DB) error
-func AddRecord(info *model.CxsjUser, db *sql.DB) error
-func QueryRecordByEmail(email string, db *sql.DB) (*model.CxsjUser, error)
-func ModifyRecord(info *model.CxsjUser, db *sql.DB)
-func DeleteRecord(email string, db *sql.DB) error
+http.HandleFunc("/query", controller.QueryHandler)
+http.HandleFunc("/list", controller.ListHandler)
+http.HandleFunc("/ping", controller.PingHandler)
+http.HandleFunc("/add", controller.AddHandler)
+http.HandleFunc("/delete", controller.DeleteHandler)
+http.HandleFunc("/modify", controller.ModifyHandler)
 ```
 
 ## 数据库模型
@@ -50,6 +50,9 @@ MariaDB [cxsj1db]> DESCRIBE users;
 +----------+--------------+------+-----+---------+----------------+
 
 ```
+
+## 前端
+完全的依托，目前只能说能跑（
 
 ## 使用方法
 
