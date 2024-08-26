@@ -2,28 +2,57 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>简易数据库操作界面</title>
+    <title>数据库操作界面</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table, th, td { border: 1px solid black; border-collapse: collapse; }
+        th, td { padding: 10px; }
+        th { background-color: #f2f2f2; }
+    </style>
 </head>
 <body>
-<h1>数据库操作</h1>
-<input id="queryInput" type="text" placeholder="输入查询条件">
+<h1>数据库操作界面</h1>
+
+<!-- 查询 -->
+<h2>查询数据</h2>
+<input type="text" id="queryInput" placeholder="输入查询条件">
 <button onclick="queryData()">查询</button>
-<br>
-<button onclick="addData()">添加数据</button>
-<button onclick="updateData()">更新数据</button>
-<button onclick="deleteData()">删除数据</button>
-<table id="dataTable" border="1">
+<table id="dataTable">
     <thead>
     <tr>
         <th>id</th>
         <th>email</th>
         <th>name</th>
+        <th>password</th>
+        <th>gender</th>
     </tr>
     </thead>
     <tbody>
     <!-- 查询结果将在这里显示 -->
     </tbody>
 </table>
+
+<!-- 添加数据 -->
+<h2>添加数据</h2>
+<input type="text" id="addEmail" placeholder="Email">
+<input type="text" id="addName" placeholder="Name">
+<input type="password" id="addPassword" placeholder="Password">
+<input type="text" id="addGender" placeholder="Gender">
+<button onclick="addData()">添加</button>
+
+<!-- 更新数据 -->
+<h2>更新数据</h2>
+<input type="text" id="updateEmail" placeholder="Email">
+<input type="text" id="updateName" placeholder="更新的Name">
+<input type="password" id="updatePassword" placeholder="更新的Password">
+<input type="text" id="updateGender" placeholder="更新的Gender">
+<button onclick="updateData()">更新</button>
+
+<!-- 删除 -->
+<h2>删除数据</h2>
+<input type="text" id="deleteEmail" placeholder="输入要删除的数据Email">
+<button onclick="deleteData()">删除</button>
+
 <script src="app.js"></script>
 </body>
 </html>
