@@ -1,10 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"github.com/hewo233/cxsj_homework1/common"
 	"github.com/hewo233/cxsj_homework1/routes"
-	"golang.org/x/crypto/ssh/terminal"
 	"log"
 	"net/http"
 	"os"
@@ -12,13 +10,21 @@ import (
 
 func main() {
 
-	fmt.Print("Enter Password: ")
-	passwordBytes, err := terminal.ReadPassword(int(os.Stdin.Fd()))
-	if err != nil {
-		fmt.Println("Error reading password")
+	/*
+		fmt.Print("Enter Password: ")
+		passwordBytes, err := terminal.ReadPassword(int(os.Stdin.Fd()))
+		if err != nil {
+			fmt.Println("Error reading password")
+			return
+		}
+		dbPassword := string(passwordBytes)
+	*/
+
+	dbPassword := os.Getenv("DB_PASSWORD")
+	if dbPassword == "" {
+		log.Fatal("DB_PASSWORD not set")
 		return
 	}
-	dbPassword := string(passwordBytes)
 
 	common.UserDB, _ = common.InitDB(dbPassword)
 	defer common.CloseDB(common.UserDB)

@@ -6,19 +6,28 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/hewo233/cxsj_homework1/model"
 	"log"
+	"os"
 )
 
 const (
 	dbName = "cxsj1db"
 	dbUser = "hewo"
-	dbHost = "localhost:3306"
+	dbHost = "mariadb"
 )
 
 var UserDB *sql.DB
 
+func getDBConfig() string {
+	host := os.Getenv("DB_HOST")
+	user := os.Getenv("DB_USER")
+	name := os.Getenv("DB_NAME")
+	password := os.Getenv("DB_PASSWORD")
+	return fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", user, password, host, name)
+}
+
 // InitDB init DB, return a pointer to sql.DB
 func InitDB(dbPassword string) (*sql.DB, error) {
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s)/%s", dbUser, dbPassword, dbHost, dbName))
+	db, err := sql.Open("mysql", getDBConfig())
 	if err != nil {
 		log.Println("Error opening database connection:", err)
 		return nil, err

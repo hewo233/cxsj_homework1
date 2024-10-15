@@ -1,0 +1,40 @@
+services:
+  mariadb:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: hewo233
+      MYSQL_DATABASE: cxsj1db
+      MYSQL_USER: hewo
+      MYSQL_PASSWORD: hewo233
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+      - mariadb-data:/var/lib/mysql
+    restart: always
+    healthcheck:
+      test: ["CMD", "mariadb", "-u", "root", "-phewo233", "-e", "SELECT 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  app:
+    build:
+        context: .
+        dockerfile: Dockerfile
+        network: host
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: mariadb
+      DB_USER: hewo
+      DB_PASSWORD: hewo233
+      DB_NAME: cxsj1db
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    restart: always
+
+volumes:
+  mariadb-data:
